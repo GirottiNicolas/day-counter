@@ -2,9 +2,14 @@ function iniciarContador() {
     const title = document.getElementById("tituloInput").value;
     const selectedDate = document.getElementById("fechaInput").value;
 
+    
+
+    // Crear contador
+    const dayCounter = new DayCounter(title, selectedDate);
+
     // Validación
-    if (!selectedDate) {
-        alert("Por favor selecciona una fecha");
+    if (dayCounter.verifyDate(selectedDate)) {
+        alert("Esa fecha ya es parte del pasado :)");
         return;
     }
 
@@ -12,12 +17,11 @@ function iniciarContador() {
     if (title) {
         document.getElementById("contadorTitulo").textContent = title;
     }
-
-    // Crear contador
-    const dayCounter = new DayCounter(title, selectedDate);
-
+    
+    
     // Calcular días
     const days = dayCounter.numberOfDaysSince();
+
 
     // Render countdown
     renderDigits(days);
@@ -26,6 +30,9 @@ function iniciarContador() {
     document.getElementById("texto").textContent =
         `Faltan ${days} días para ${selectedDate}`;
 }
+
+
+
 
 
 function renderDigits(number) {
@@ -51,11 +58,14 @@ class DayCounter {
 
   constructor(title, dateString) {
     this.title = title;
+    this.date = this.dateStringToDate(dateString);
+  }
 
-    // Parseo seguro YYYY-MM-DD
+  dateStringToDate(dateString){
     const [year, month, day] = dateString.split("-").map(Number);
-    this.date = new Date(year, month - 1, day);
-    this.date.setHours(0, 0, 0, 0);
+    const newDate = new Date(year, month - 1, day);
+    newDate.setHours(0, 0, 0, 0);
+    return newDate
   }
 
   numberOfDaysSince() {
@@ -66,4 +76,9 @@ class DayCounter {
       Math.floor((today - this.date) / DayCounter.MS_PER_DAY)
     );
   }
+
+  verifyDate(dateString){
+    return this.dateStringToDate(dateString) < Date.now(); 
+  }
+
 }
