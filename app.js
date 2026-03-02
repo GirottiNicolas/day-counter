@@ -1,15 +1,16 @@
+import { DayCounter } from "./src/DayCounter.js";
+
+
 function iniciarContador() {
     const title = document.getElementById("tituloInput").value;
     const selectedDate = document.getElementById("fechaInput").value;
-
-    
 
     // Crear contador
     const dayCounter = new DayCounter(title, selectedDate);
 
     // Validación
-    if (dayCounter.verifyDate(selectedDate)) {
-        alert("Esa fecha ya es parte del pasado :)");
+    if (!dayCounter.verifyDate(selectedDate)) {
+        alert("Las fechas validas son a partir de hoy hasta el año 9999");
         return;
     }
 
@@ -52,33 +53,5 @@ function renderDigits(number) {
     });
 }
 
-class DayCounter {
 
-  static MS_PER_DAY = 1000 * 60 * 60 * 24;
-
-  constructor(title, dateString) {
-    this.title = title;
-    this.date = this.dateStringToDate(dateString);
-  }
-
-  dateStringToDate(dateString){
-    const [year, month, day] = dateString.split("-").map(Number);
-    const newDate = new Date(year, month - 1, day);
-    newDate.setHours(0, 0, 0, 0);
-    return newDate
-  }
-
-  numberOfDaysSince() {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    return Math.abs(
-      Math.floor((today - this.date) / DayCounter.MS_PER_DAY)
-    );
-  }
-
-  verifyDate(dateString){
-    return this.dateStringToDate(dateString) < Date.now(); 
-  }
-
-}
+window.iniciarContador = iniciarContador;
