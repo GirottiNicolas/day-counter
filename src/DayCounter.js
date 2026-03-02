@@ -26,14 +26,22 @@ export class DayCounter {
     );
   }
 
-  verifyDate(dateString){
+ verifyDate(dateString){
     const dateToCheck = this.dateStringToDate(dateString);
-    return this.isADateAfterToday(dateToCheck) && this.isAValidDateForMonth(dateString) && this.isAValidYear(dateToCheck); 
-  }
 
-  isADateAfterToday(date){
-    return date > Date.now()
-  }
+    return (
+        this.isADateAfterToday(dateString) &&
+        this.isAValidDateForMonth(dateString) &&
+        this.isAValidYear(dateToCheck)
+    ); 
+}
+
+  isADateAfterToday(dateString){
+    const date = this.dateStringToDate(dateString);
+    const today = new Date();
+    today.setHours(0,0,0,0); // solo fecha, sin horas
+    return date >= today;
+}
 
   isAValidDateForMonth(dateString){
     const [year, month, day] = dateString.split("-").map(Number);
@@ -47,6 +55,7 @@ export class DayCounter {
   }
 
   isAValidYear(date){
-    return date.getFullYear <= DayCounter.MAX_YEAR;
-  }
+    const year = date.getFullYear(); 
+    return year >= 2026 && year <= DayCounter.MAX_YEAR;
+}
 }
