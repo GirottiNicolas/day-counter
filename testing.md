@@ -5,7 +5,7 @@ Version: v2.0
 Testing : Manual
 Fecha : 02/03/2026
 Tester : Nicolas Girotti
-
+ 
 
 Checklist 
 - Calcular los dias faltantes para una fecha futura.
