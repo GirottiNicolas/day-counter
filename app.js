@@ -19,10 +19,8 @@ function iniciarContador() {
         document.getElementById("contadorTitulo").textContent = title;
     }
     
-    
     // Calcular días
     const days = dayCounter.numberOfDaysSince();
-
 
     // Render countdown
     renderDigits(days);

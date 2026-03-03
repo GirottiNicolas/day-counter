@@ -6,7 +6,7 @@ Fecha : 02/03/2026
 Tester : Nicolas Girotti
 
 
-# Test plan:
+# Test plan (checklist):
 The objective of this plan is to verify that:
 
 - 1) The application correctly calculates:
@@ -17,7 +17,7 @@ The objective of this plan is to verify that:
     * Invalid date formats (only dd-mm-yyyy)
     * Leap years
 
-- 3) The UI correctly displays:
+- 3) The UI displays:
     * Results
     * Error messages
 - 4) The application behaves consistenly across the browsers.
@@ -48,7 +48,7 @@ The objective of this plan is to verify that:
 - Result rendering component
 
 # Test strategy
-- We will use multiple levels of testing:
+- We will use manual testing using the white box method. Also Unit testing and exploratory testing for UI:
 
 # Unit testing
 - Tool : Vitest
@@ -76,8 +76,19 @@ Description: Invalid date
 Input : "aaa"
 Expected results : Error thrown
 
+# Edge cases - Lower Boundary
+ID : TC-04
+Description: Day Before Start Date
+Input : "01-02-2026"
+Expected results : Error thrown
 
-# Integration testing
+# Edge cases - Upper boundary exceeded
+ID : TC-05
+Description: Day after counter expiration
+Input : "01-01-10000"
+Expected results : Error thrown
+
+# Exploratory testing
  - Verify UI calls DayCounter correctly
  - Verify correct message rendering
  - Verify error message rendering
@@ -95,3 +106,11 @@ Expected results : Error thrown
         * Firefox
         * Brave
     - Vitest
+
+
+# Schedule 
+- 01/03/2026 requirements and finalizing
+- 02/03/2026 business logic and implementation
+- 02/03/2026 test cases and test cases execution
+- 03/03/2026 exploratory testing (UI)
+- 03/03/2026 defect reporting
